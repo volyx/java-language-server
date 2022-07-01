@@ -11,16 +11,33 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 18
+    - name: Set up JDK
       uses: actions/setup-java@v3
       with:
         java-version: '18'
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots verify
+      run: mvn --batch-mode --update-snapshots package
+    - name: Download JDKs
+      run: |
+        ./scripts/download_linux_jdk.sh
+        ./scripts/download_windows_jdk.sh
+        ./scripts/download_mac_jdk.sh
+        ./scripts/link_linux.sh
+        ./scripts/link_windows.sh
+        ./scripts/link_mac.sh
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Build extension
+      run: npm run-script vscode:build
+    - name: Upload extension file
+      uses: actions/upload-artifact@v3
+      with:
+        name: vscode-extension
+        path: build.vsix
