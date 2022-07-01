@@ -18,6 +18,8 @@
 - Docs are not getting resolved for field completions.
 - Create missing method always places the method in the current class, even if it belongs somewhere else.
 - Select entire name, find references => no results
+- Crashes if maven is not installed
+- Homebrew users don't have src.zip, detect java version and download the appropriate src.zip
 
 ## Optimizations
 - Compilation is very slow in the presence of lots of errors
