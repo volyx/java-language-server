@@ -31,20 +31,20 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - run:
-          name: Install OpenJDK 13
+          name: Install OpenJDK 18
           command: |
-            wget https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz
-            gunzip -c openjdk-13.0.1_linux-x64_bin.tar.gz | tar xopf -
-            echo "export JAVA_HOME=`pwd`/jdk-13.0.1" >> $BASH_ENV
-            echo "export PATH=`pwd`/jdk-13.0.1/bin:$PATH" >> $BASH_ENV
+            wget https://download.java.net/java/GA/jdk18.0.1.1/65ae32619e2f40f3a9af3af1851d6e19/2/GPL/openjdk-18.0.1.1_linux-x64_bin.tar.gz
+            gunzip -c openjdk-18.0.1.1_linux-x64_bin.tar.gz | tar xopf -
+            echo "export JAVA_HOME=`pwd`/jdk-18.0.1.1" >> $BASH_ENV
+            echo "export PATH=`pwd`/jdk-18.0.1.1/bin:$PATH" >> $BASH_ENV
       
       - run:
           name: Install Bazel
           command: |
             sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3
-            wget https://github.com/bazelbuild/bazel/releases/download/2.2.0/bazel-2.2.0-installer-linux-x86_64.sh
-            chmod +x bazel-2.2.0-installer-linux-x86_64.sh
-            ./bazel-2.2.0-installer-linux-x86_64.sh --user
+            wget https://github.com/bazelbuild/bazel/releases/download/5.2.0/bazel-5.2.0-installer-linux-x86_64.sh
+            chmod +x bazel-5.2.0-installer-linux-x86_64.sh
+            ./bazel-5.2.0-installer-linux-x86_64.sh --user
             echo "export PATH=$PATH:$HOME/bin" >> $BASH_ENV
 
       - run:
