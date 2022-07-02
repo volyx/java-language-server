@@ -5,9 +5,12 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - release
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches: 
+      - master
 
 jobs:
   build:
@@ -43,3 +46,6 @@ jobs:
       with:
         name: vscode-extension
         path: build.vsix
+    - name: Publish extension in VSCode marketplace
+      if: github.ref == 'refs/heads/release'
+      run: vsce publish --pat ${{ secrets.MARKETPLACE_TOKEN }} --packagePath build.vsix
