@@ -1,16 +1,9 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Java CI with Maven
+name: Release
 
 on:
   push:
-    branches:
+    tags:
       - release
-      - master
-  pull_request:
-    branches: 
-      - master
 
 jobs:
   build:
@@ -23,8 +16,11 @@ jobs:
         java-version: '18'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots package
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: npm
     - name: Download JDKs
       run: |
         ./scripts/download_linux_jdk.sh
@@ -33,19 +29,11 @@ jobs:
         ./scripts/link_linux.sh
         ./scripts/link_windows.sh
         ./scripts/link_mac.sh
-    - name: Set up Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
     - name: Fetch node dependencies
       run: npm install
+    - name: Build Java
+      run: mvn --batch-mode package
     - name: Build extension
       run: npm run-script vscode:build
-    - name: Upload extension file
-      uses: actions/upload-artifact@v3
-      with:
-        name: vscode-extension
-        path: build.vsix
     - name: Publish extension in VSCode marketplace
-      if: github.ref == 'refs/heads/release'
       run: vsce publish --pat ${{ secrets.MARKETPLACE_TOKEN }} --packagePath build.vsix
