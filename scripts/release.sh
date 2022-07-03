@@ -1,4 +1,4 @@
 npm version patch
-git tag release
-git push origin --tags
 git push
+git tag -f release
+git push -f origin release
