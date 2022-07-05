@@ -347,7 +347,7 @@ function visualVmConfig(context: ExtensionContext): ServerOptions {
         throw "Gave up";
     }
     const jars = [
-        'gson-2.8.5.jar',
+        'gson-2.8.9.jar',
         'java-language-server.jar',
         'protobuf-java-3.19.3.jar',
     ];
