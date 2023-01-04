@@ -237,8 +237,6 @@ Assuming you have these prerequisites, you should be able to install locally usi
     npm install
     ./scripts/build.sh
 
-At the time of this writing, the build only works on Mac, because of the way it uses JLink. However, it would be straightforward to fix this by changing `scripts/link_mac.sh` to be more like `scripts/link_windows.sh`.
-
 ### Editing
 
 Please run ./configure before your first commit to install a pre-commit hook that formats the code.
