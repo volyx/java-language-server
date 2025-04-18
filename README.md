@@ -12,7 +12,7 @@ A Java [language server](https://github.com/Microsoft/vscode-languageserver-prot
 
 - Checkout this repository
 - Run `./scripts/link_{linux|mac|windows}.sh`
-- Run `mvn package -DskipTests`
+- Run `./mvnw package -DskipTests`
 - Add the vim plugin [natebosch/vim-lsc](https://github.com/natebosch/vim-lsc) to your vimrc
 - Add vim-lsc configuration:
   ```vimrc
